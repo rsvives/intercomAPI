@@ -12,11 +12,15 @@ app.use(express.json())
 app.use(cors())
 app.use(middleware.tokenExtractor)
 
-const MONGO_URI = process.env.MONGO_URI
-mongoose.set('strictQuery', false)
-mongoose.connect(MONGO_URI)
-  .then((res) => console.log('connected to MongoDB'))
-  .catch((err) => console.error(err))
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI)
+    console.log(`MongoDB Connected: ${conn.connection.host}`)
+  } catch (error) {
+    console.log(error)
+    process.exit(1)
+  }
+}
 
 app.get('/', (req, res) => {
   res.send(
@@ -28,6 +32,8 @@ app.use('/api/users', usersRouter)
 app.use('/api/calls', callsRouter)
 
 const PORT = process.env.PORT || 3001
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log('listening for requests')
+  })
 })
