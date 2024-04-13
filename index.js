@@ -6,6 +6,7 @@ const middleware = require('./middleware')
 const guestsRouter = require('./controllers/guests')
 const usersRouter = require('./controllers/users')
 const callsRouter = require('./controllers/calls')
+const loginRouter = require('./controllers/login')
 
 const app = express()
 app.use(express.json())
@@ -30,6 +31,10 @@ app.get('/', (req, res) => {
 app.use('/api/guests', guestsRouter)
 app.use('/api/users', usersRouter)
 app.use('/api/calls', callsRouter)
+app.use('/api/login', loginRouter)
+
+app.use(middleware.unknownEndpoint)
+app.use(middleware.errorHandler)
 
 const PORT = process.env.PORT || 3001
 connectDB().then(() => {
