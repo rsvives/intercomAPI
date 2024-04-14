@@ -4,12 +4,12 @@ const User = require('../models/User')
 const bcrypt = require('bcrypt')
 const userRouter = require('express').Router()
 
-userRouter.get('/', userExtractor, async (req, res) => {
+userRouter.get('/', async (req, res) => {
   const users = await User.find({})
   res.send(users)
 })
 
-userRouter.post('/', userExtractor, async (req, res) => {
+userRouter.post('/', async (req, res) => {
   const { user } = req.body
   const { name, username, password } = user
   if (!username || !password || password.length < 5) res.status(400).json({ error: 'username and password are required' }).end()

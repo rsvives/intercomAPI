@@ -12,6 +12,7 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 app.use(middleware.tokenExtractor)
+app.use(middleware.userExtractor)
 
 const connectDB = async () => {
   try {
