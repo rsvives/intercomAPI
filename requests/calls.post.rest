@@ -1,8 +1,0 @@
-POST http://localhost:3001/api/calls HTTP/1.1
-content-type: application/json
-
-{
-"call":{
-    "user": "6617ad5ab8784d95a1cec6ce"
-    }
-}
