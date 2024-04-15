@@ -1,5 +1,5 @@
 // const config = require('../config')
-const { userExtractor } = require('../middleware')
+// const { userExtractor } = require('../middleware')
 const User = require('../models/User')
 const bcrypt = require('bcrypt')
 const userRouter = require('express').Router()
